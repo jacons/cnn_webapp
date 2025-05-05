@@ -1,3 +1,4 @@
+```
 cnn_web_app/
 │
 ├── app.py                    
@@ -13,4 +14,5 @@ cnn_web_app/
 │   └── index.html                
 │
 ├── uploads/                     
-└── saved_models/              
+└── saved_models/
+```

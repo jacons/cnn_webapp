@@ -1,0 +1,71 @@
+
+.style_logo {
+    width:50px;
+    height:50px;
+    border-radius: 30%;
+    border: 1px solid black;
+}
+.primary_box{
+    border: 1px solid black;
+    border-radius: 6px;
+    margin:20px;
+    background-color: #f1f1f1;
+    box-shadow: black 0px 0px 2px;
+}
+.title_box {
+    border-bottom: 1px solid black;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 10px;
+    background: #dfdfdf;
+}
+.parameter_field {
+    font-size: 18px;
+    font-weight: bold;
+}
+.parameter_name {
+    font-size: 16px;
+    color: brown;
+    text-decoration: underline;
+}
+
+.parameter_value {
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+}
+.training_bar {
+    border: 1px solid black;
+    width: 300px;
+    height: 45px;
+    padding: 0;
+    margin: 10px;
+    border-radius: 10px;
+}
+.training_bar_color {
+    height: 100%;
+    width: 0;
+    border-radius: 10px;
+    background: linear-gradient(to right, red, blue);
+    transition: width 0.5s;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.percentage_bar {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    line-height: 25px;
+    z-index: 2;
+    color: black;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+}
+
+.box_log_training {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
