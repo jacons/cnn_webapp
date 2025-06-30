@@ -1,8 +1,6 @@
-from typing import List
-
-import torch
-import pandas as pd
 from pathlib import Path
+
+import pandas as pd
 
 
 def check_dataset_validity(dataset_path: Path):
