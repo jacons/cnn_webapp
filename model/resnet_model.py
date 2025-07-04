@@ -82,7 +82,7 @@ class CNNClassifier(nn.Module):
 
 # Example usage
 if __name__ == '__main__':
-    classifier = CNNClassifier(num_classes=10, model_name="resnet18", pretrained=True, freeze_layers=5)
+    classifier = CNNClassifier(num_classes=2, model_name="resnet18", pretrained=True, freeze_layers=9)
 
     # Print the model architecture
     print(classifier)
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     for name, param in classifier.named_parameters():
         print(f"Parameter: {name}, Requires Grad: {param.requires_grad}")
 
-    dummy_input = torch.randn(4, 3, 224, 224)  # Batch of 4 images
-    output = classifier(dummy_input)
+    #dummy_input = torch.randn(4, 3, 224, 224)  # Batch of 4 images
+    #output = classifier(dummy_input)
 
-    print(f"\nOutput shape: {output.shape}")
+    #print(f"\nOutput shape: {output.shape}")

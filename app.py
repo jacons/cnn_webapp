@@ -11,25 +11,35 @@ from ml_utils import CustomDataset, get_available_accelerators
 from model.resnet_model import CNNClassifier
 from training import train_classifier
 
-app = Flask(__name__)
+# ---------------- PARAMETERS AND CONSTANT ----------------
+# ---------------- PARAMETERS AND CONSTANT ----------------
 DATASET_FOLDER = 'datasets'
-MODEL_FOLDER = 'saved_models'
-app.config['DATASET_FOLDER'] = DATASET_FOLDER
-app.config['MODEL_FOLDER'] = MODEL_FOLDER
-
+MODEL_FOLDER = 'webapp_result'
 os.makedirs(DATASET_FOLDER, exist_ok=True)
 os.makedirs(MODEL_FOLDER, exist_ok=True)
 
 current_state = {
-    "training": False, "status": 0, "tr_loss_mean": 0, "tr_loss_std": 0,
-    "vl_loss_mean": 0, "vl_loss_std": 0, "vl_f1": 0, "vl_acc": 0,
-    "time_start": 0, "time_elapsed": 0, "epoch": 0, "batch": 0
+    "training": False,  # if training or validation
+    "status": 0,  # 0-100 percentage of training progress
+    "tr_loss_mean": 0,  # mean training loss
+    "tr_loss_std": 0,  # std training loss
+    "vl_loss_mean": 0,  # mean validation loss
+    "vl_loss_std": 0,  # std validation loss
+    "vl_f1": 0,  # validation F1 score
+    "vl_acc": 0,  # validation accuracy
+    "time_start": 0,  # time when training started
+    "time_elapsed": 0,  # time elapsed since training started
+    "epoch": 0,  # current epoch
+    "batch": 0  # current batch
 }
 
 training_thread = None
+
+# Get the list of datasets and available GPUs
 dataset_list = [name for name in os.listdir(DATASET_FOLDER) if os.path.isdir(os.path.join(DATASET_FOLDER, name))]
 gpu_list = get_available_accelerators()
 
+# Define a dict of possible optimizers
 optimizer_map = {
     "Adam": optim.Adam,
     "SGD": optim.SGD,
@@ -38,7 +48,13 @@ optimizer_map = {
 }
 
 
+# ---------------- PARAMETERS AND CONSTANT ----------------
+# ---------------- PARAMETERS AND CONSTANT ----------------
+
+# ---------------- FUNCTIONS ----------------
+
 def get_optimizer_from_str(opt_text: str) -> Type[optim.Optimizer]:
+    """ Convert a string representation of an optimizer to the corresponding PyTorch optimizer class."""
     try:
         return optimizer_map[opt_text]
     except KeyError:
@@ -73,19 +89,28 @@ def train_in_background(params: dict):
     train_classifier(
         model=model,
         dataset=(train_loader, valid_loader),
-        optimizer=params["optimizer"],
-        scheduler=optim.lr_scheduler.ReduceLROnPlateau,
-        num_epochs=params["num_epochs"],
+        optimizer_cls=params["optimizer"],
         opt_params={"lr": params["lr"]},
-        sc_params={"mode": "max", "patience": 3, "threshold": 0.9},
+        scheduler_cls=optim.lr_scheduler.CosineAnnealingLR,
+        scheduler_params=dict(T_max=params["num_epochs"], eta_min=1e-6),
+        num_epochs=params["num_epochs"],
         metric_history=metric_history_path,
         model_cache=model_path / "model.pth",
         patience=params["patience"],
         device=params["device"],
-        current_state=current_state,
+        state=current_state,
     )
 
     current_state.update({"status": 100, "training": False})
+
+
+# ---------------- FUNCTIONS ----------------
+
+
+app = Flask(__name__)
+
+app.config['DATASET_FOLDER'] = DATASET_FOLDER
+app.config['MODEL_FOLDER'] = MODEL_FOLDER
 
 
 @app.route('/', methods=['GET', 'POST'])

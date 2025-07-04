@@ -3,7 +3,7 @@ import time
 from pathlib import Path
 from typing import Tuple, Type, Dict
 
-import sklearn
+from sklearn.metrics import accuracy_score, f1_score
 import torch
 from torch import nn, optim
 from torch.nn.modules.loss import CrossEntropyLoss
@@ -95,8 +95,8 @@ def evaluate_model(dataloader: DataLoader, model: nn.Module, metrics: dict,
     metrics[f"{prefix}_loss"] = losses_tensor.mean().item()
     metrics[f"{prefix}_loss_std"] = losses_tensor.std().item()
     # Note: sklearn.metrics needs to be imported for f1_score and accuracy_score
-    metrics[f"{prefix}_f1"] = sklearn.metrics.f1_score(trues, preds, average='weighted')
-    metrics[f"{prefix}_acc"] = sklearn.metrics.accuracy_score(trues, preds)
+    metrics[f"{prefix}_f1"] = f1_score(trues, preds, average='weighted')
+    metrics[f"{prefix}_acc"] = accuracy_score(trues, preds)
 
 
 

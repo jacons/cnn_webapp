@@ -102,8 +102,7 @@ def get_available_accelerators() -> List[str]:
     # Check for CUDA (Linux/Windows with NVIDIA GPU)
     if torch.cuda.is_available():
         for i in range(torch.cuda.device_count()):
-            name = torch.cuda.get_device_name(i)
-            accelerators.append(name)
+            accelerators.append(f"cuda:{i}")
 
     # Check for MPS (macOS with Apple Silicon)
     if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
