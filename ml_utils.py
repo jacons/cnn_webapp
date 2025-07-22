@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Literal, List
 
 import PIL
+import pandas as pd
 import torch
 from pandas import read_csv, Series
 from prettytable import PrettyTable
@@ -86,6 +87,13 @@ class CustomDataset(Dataset):
 
         return Sample(img_tensor, self.img2class.loc[img_name])
 
+def get_annotates_classes(data_path: Path) -> dict:
+    """
+    Reads a CSV file containing class annotations and returns a dictionary mapping
+    :param data_path:
+    :return:
+    """
+    return pd.read_csv(data_path / "annotated_classes.csv").set_index("class_idx")["class_name"].to_dict()
 
 def get_available_accelerators() -> List[str]:
     """

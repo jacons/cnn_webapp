@@ -1,4 +1,7 @@
+import json
+import os
 from pathlib import Path
+from typing import List, Union, Dict, Any
 
 import pandas as pd
 
@@ -42,3 +45,72 @@ def check_dataset_validity(dataset_path: Path):
                 return False
 
     return True
+
+
+
+def find_folders_with_model(folder:str)-> List[Path]:
+    """
+    Find all folders containing a model file named 'model.pth'.
+    :param folder:
+    :return:
+    """
+    matching_folders = []
+    for root, dirs, files in os.walk(folder):
+        if "model.pth" in files:
+            matching_folders.append(root)
+    return matching_folders
+
+
+
+def save_json(data: Union[Dict, List], filepath: Path, default: Any = None):
+    """
+    Saves JSON data to a file.
+
+    Parameters:
+    -----------
+    data : Union[Dict, List]
+        JSON data to be saved.
+
+    filepath : Path
+        Path object where the JSON data will be saved.
+
+    default : Any, optional
+        Default function for serializing objects that cannot be serialized by default, by default None.
+
+    Raises:
+    -------
+    TypeError
+        If the data provided is not serializable to JSON.
+    IOError
+        If there is an issue writing the file to the specified path.
+    """
+    with filepath.open(mode="w") as file:
+        json.dump(data, file, indent=2, default=default)
+
+
+def load_json(filepath: Path) -> Union[Dict, List]:
+    """
+    Loads JSON data from a file.
+
+    Parameters:
+    -----------
+    filepath : Path
+        Path object from where the JSON data will be loaded.
+
+    Returns:
+    --------
+    Union[Dict, List]
+        Loaded JSON data.
+
+    Raises:
+    -------
+    FileNotFoundError
+        If the specified file does not exist.
+    JSONDecodeError
+        If the file contains invalid JSON.
+    IOError
+        If there is an issue reading the file from the specified path.
+    """
+    with filepath.open(mode="r", encoding="utf-8") as file:
+        dict_ = json.load(file)
+    return dict_
