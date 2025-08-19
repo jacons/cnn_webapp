@@ -71,6 +71,7 @@ gpu_list = get_available_accelerators()
 # Mapping of optimizer names to PyTorch optimizer classes
 optimizer_map = {
     "Adam": optim.Adam,
+    "AdamW": optim.AdamW,
     "SGD": optim.SGD,
     "L-BFGS": optim.LBFGS,
     "Averaged Stochastic Gradient Descent": optim.ASGD,

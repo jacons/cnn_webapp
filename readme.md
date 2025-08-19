@@ -10,7 +10,7 @@ The model is built with **PyTorch** and leverages transfer learning from pretrai
 The repository also includes a **web application** that allows interactive **training** and **inference** directly from
 the browser.
 
-[Report](./static/Cars_Recognizer.pdf)
+[Report](static/report.pdf)
 ---
 
 ## 🚀 Features

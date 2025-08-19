@@ -197,6 +197,8 @@ def train_classifier(model: nn.Module, dataset: Tuple[DataLoader, DataLoader], o
             # Update progress bar with batch info
             state["batch"] = f"Batch {idx}/{train_batches}"
             p_bar.set_description(f"{state['epoch']} | {state['batch']}")
+            progress_bar = int(100 * ((idx + train_batches * epoch) / (num_epochs * train_batches)))
+            state.update({"status": progress_bar})
 
         if scheduler:
             scheduler.step()  # Step the scheduler (if defined)
@@ -227,11 +229,11 @@ def train_classifier(model: nn.Module, dataset: Tuple[DataLoader, DataLoader], o
         # Update shared state dictionary
         state.update({
             "status": int(100 * (p_bar.n / p_bar.total)),  # Training % progress
-            "tr_loss_mean": metrics["train_loss"],
-            "tr_loss_std": metrics["train_loss_std"],
-            "vl_loss_mean": metrics["valid_loss"],
-            "vl_loss_std": metrics["valid_loss_std"],
-            "vl_f1": metrics["valid_f1"],
-            "vl_acc": metrics["valid_acc"],
+            "tr_loss_mean": round(metrics["train_loss"], 4),
+            "tr_loss_std": round(metrics["train_loss_std"], 4),
+            "vl_loss_mean": round(metrics["valid_loss"], 4),
+            "vl_loss_std": round(metrics["valid_loss_std"], 4),
+            "vl_f1": round(metrics["valid_f1"], 4),
+            "vl_acc": round(metrics["valid_acc"], 4),
             "time_elapsed": str(datetime.timedelta(seconds=int(time.time() - start_time)))
         })
