@@ -1,0 +1,12 @@
+{
+  "num_classes": 196,
+  "dataset_name": "car_dataset",
+  "pretrained": true,
+  "optimizer": "<class 'torch.optim.adam.AdamW'>",
+  "lr": 0.003,
+  "batch_size": 150,
+  "num_epochs": 15,
+  "patience": 5,
+  "output_dir": "r18_pretrained_freeze0",
+  "device": "mps"
+}

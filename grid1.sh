@@ -1,0 +1,5 @@
+#!/bin/bash
+python car_classifier.py --dataset_path "datasets/car_dataset" --metric_history "results/r18_pretrained_fre0.json" --new_hist --model_cache "results/r18_pretrained_fre0.pth" --batch_size 150 --model_name "resnet18" --pretrained --freeze_layers 0 --num_epochs 15 --device "cuda:2"
+python car_classifier.py --dataset_path "datasets/car_dataset" --metric_history "results/r18_fre0.json" --new_hist --model_cache "results/r18_fre0.pth" --batch_size 150 --model_name "resnet18" --freeze_layers 0 --num_epochs 15 --device "cuda:2"
+python car_classifier.py --dataset_path "datasets/car_dataset" --metric_history "results/r18_pretrained_fre6.json" --new_hist --model_cache "results/r18_pretrained_fre6.pth" --batch_size 150 --model_name "resnet18" --pretrained --freeze_layers 6 --num_epochs 15 --device "cuda:2"
+python car_classifier.py --dataset_path "datasets/car_dataset" --metric_history "results/r18_pretrained_fre8.json" --new_hist --model_cache "results/r18_pretrained_fre8.pth" --batch_size 150 --model_name "resnet18" --pretrained --freeze_layers 8 --num_epochs 15 --device "cuda:2"
