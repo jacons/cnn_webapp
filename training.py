@@ -197,7 +197,7 @@ def train_classifier(model: nn.Module, dataset: Tuple[DataLoader, DataLoader], o
             # Update progress bar with batch info
             state["batch"] = f"Batch {idx}/{train_batches}"
             p_bar.set_description(f"{state['epoch']} | {state['batch']}")
-            progress_bar = int(100 * ((idx + train_batches * epoch) / (num_epochs * train_batches)))
+            progress_bar = max(int(100 * ((idx + train_batches * epoch) / (num_epochs * train_batches))) - 1, 0)
             state.update({"status": progress_bar})
 
         if scheduler:
