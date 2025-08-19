@@ -1,7 +1,6 @@
 <img style='vertical-align:middle;' src='./static/imgs/logo.png' width='100' height='100'>
-<div style='vertical-align:middle; display:inline;font-size:30px'>
-    Car Classifier Web Application
-</div>
+
+# Car Classifier Web Application
 
 This project implements a **deep learning pipeline for car image classification** using **ResNet-based Convolutional
 Neural Networks (CNNs)**.  
@@ -15,7 +14,6 @@ the browser.
 ---
 
 ## 🚀 Features
-
 - CNN classifier built on **ResNet18 / ResNet34** architectures.
 - Transfer learning with **optional pretrained weights**.
 - Configurable number of frozen layers for fine-tuning.
@@ -27,7 +25,6 @@ the browser.
 ## ⚙️ Installation
 
 ### 1. Clone the repository
-
 ```bash
 git clone https://github.com/jacons/cnn_webapp
 conda env create -f environment.yml
@@ -35,23 +32,21 @@ conda activate car-classifier
 ```
 
 ## 📂 Dataset
-
 The dataset can be downloaded from Google Drive:
 [Car Dataset (Google Drive Link)](https://drive.google.com/file/d/1QwVCrUsseEFTopwKU4lbGOo0ePUsoCN3/view?usp=drive_link)
 After downloading, extract it and place it under the datasets/ folder (e.g., datasets/car_dataset/).
+
 
 ## 🌐 Running the Web Application
 
 The application supports both training and inference modes.
 
 Training Mode
-
 ```bash
 python app.py --train
 ```
 
 Inference Mode
-
 ```bash
 python app.py --inference
 ```
@@ -61,7 +56,6 @@ python app.py --inference
 You can also train the model directly from the terminal with full configuration options.
 
 Example:
-
 ```bash
 python car_classifier.py \
     --dataset_path "datasets/car_dataset" \
@@ -91,6 +85,7 @@ Below are examples of the training dashboard and inference interface:
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
 
 ## Authors
 
